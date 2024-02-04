@@ -11,8 +11,4 @@ const axiosInstance = axios.create({
 });
 
 
-axiosInstance("login")
-
-
-
 export default axiosInstance;

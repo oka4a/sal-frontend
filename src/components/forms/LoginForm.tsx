@@ -2,7 +2,7 @@ import { Box, Button, FormControl, Input } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import authApi from "../api/auth";
+import useLogin from "../../hooks/useLogin";
 
 const schema = yup.object({
   username: yup.string().required(),
@@ -11,7 +11,8 @@ const schema = yup.object({
 
 type LoginData = yup.InferType<typeof schema>;
 
-const Login = () => {
+const LoginForm = () => {
+  const { mutate: login, isPending } = useLogin();
   const {
     register,
     formState: { errors },
@@ -21,7 +22,7 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<LoginData> = (data) => {
-    authApi.login(data);
+    login(data);
   };
 
   return (
@@ -42,8 +43,10 @@ const Login = () => {
           {...register("password")}
         />
       </FormControl>
-      <Button type="submit">Login</Button>
+      <Button type="submit" isLoading={isPending}>
+        Login
+      </Button>
     </Box>
   );
 };
-export default Login;
+export default LoginForm;
