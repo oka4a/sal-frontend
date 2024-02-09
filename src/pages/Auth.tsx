@@ -1,8 +1,8 @@
 import {
   Box,
-  Flex,
+  Center,
+  HStack,
   Image,
-  Stack,
   Tab,
   TabList,
   TabPanel,
@@ -35,35 +35,39 @@ const Auth = () => {
     setSearchParams({ tab: index.toString() });
   };
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      minW="100vw"
-      minH="100vh"
-      bg="#F5F5F5"
-    >
-      <Stack
-        direction={{
-          base: "column",
-          md: "row",
-        }}
-        maxW="3xl"
-        border="1px solid green"
+    <Center minH="100vh" w="min(100%, 1200px)" mx="auto">
+      <HStack
+        flexGrow="1"
+        borderRadius="8xl"
+        spacing="0"
+        alignItems="stretch"
+        boxShadow={{base: 0, md: "lg"}}
       >
-        <Box bg="#EBFBFF" textAlign="center">
+        <Box
+          bg="#EBFBFF"
+          px="4"
+          textAlign="center"
+          flexGrow="1"
+          py="10"
+          borderTopLeftRadius={{base: 0, md: "8xl"}}
+          borderBottomLeftRadius={{base: 0, md: "8xl"}}
+        >
           <Image src={logoImage} maxW="120" display="inline-block" />
           <Tabs
             index={tabIndex}
             onChange={handleTabsChange}
-            variant="soft-rounded"
-            colorScheme="green"
+            variant="solid-rounded-two-tabs"
+            colorScheme="primary"
             as={VStack}
+            maxW="sm"
+            mx="auto"
+            size="lg"
           >
-            <TabList>
-              <Tab>Sign In</Tab>
-              <Tab>Sign Up</Tab>
+            <TabList justifyContent="center" py="8">
+              <Tab>Sign in</Tab>
+              <Tab>Sign up</Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels sx={{ "> div": { p: 0 } }}>
               <TabPanel>
                 <LoginForm />
               </TabPanel>
@@ -73,11 +77,19 @@ const Auth = () => {
             </TabPanels>
           </Tabs>
         </Box>
-        <Flex bg="white" alignItems="flex-end" justifyContent="center">
-          <Image src={authImage} maxW="400" />
-        </Flex>
-      </Stack>
-    </Flex>
+        <Box
+          w="48%"
+          ms="-50px"
+          display={{ base: "none", md: "flex" }}
+          justifyContent="center"
+          alignItems="flex-end"
+          bg="white"
+          borderRadius="8xl"
+        >
+          <Image src={authImage} borderRadius="8xl" />
+        </Box>
+      </HStack>
+    </Center>
   );
 };
 export default Auth;

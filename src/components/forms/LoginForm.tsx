@@ -1,8 +1,17 @@
-import { Box, Button, FormControl, Input } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  FormControl,
+  HStack,
+  Input,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import useLogin from "../../hooks/useLogin";
+import GitHubIcon from "../icons/GitHubIcon";
 
 const schema = yup.object({
   username: yup.string().required(),
@@ -26,27 +35,36 @@ const LoginForm = () => {
   };
 
   return (
-    <Box
-      as="form"
-      py="20"
-      maxW="md"
-      mx="auto"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <VStack as="form" onSubmit={handleSubmit(onSubmit)} spacing="7" minH="408px">
       <FormControl isInvalid={!!errors?.username}>
-        <Input placeholder="username" {...register("username")} />
+        <Input placeholder="Username" {...register("username")} />
       </FormControl>
       <FormControl isInvalid={!!errors?.password}>
         <Input
-          placeholder="password"
+          placeholder="Password"
           type="password"
           {...register("password")}
         />
       </FormControl>
       <Button type="submit" isLoading={isPending}>
-        Login
+        Sign in
       </Button>
-    </Box>
+      <HStack w="60%">
+        <Divider borderColor="#A1A2A3" />
+        <Text lineHeight="1" color="#A1A2A3">
+          Or
+        </Text>
+        <Divider borderColor="#A1A2A3" />
+      </HStack>
+      <Button
+        leftIcon={<GitHubIcon fontSize="2xl" />}
+        iconSpacing={3}
+        bg="black"
+        _hover={{ opacity: 0.85 }}
+      >
+        Sign in With GitHub
+      </Button>
+    </VStack>
   );
 };
 export default LoginForm;
